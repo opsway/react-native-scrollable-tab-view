@@ -33,24 +33,24 @@ const SizeableTabBar = React.createClass({
     renderTabOption(name, page) {
     },
 
-    renderTab(name, page, isTabActive, onPressHandler, tabSize) {
+    renderTab(name, page, isTabActive, onPressHandler, tabSizes) {
         const {activeTextColor, inactiveTextColor, textStyle,} = this.props;
         const textColor = isTabActive ? activeTextColor : inactiveTextColor;
         const fontWeight = isTabActive ? 'bold' : 'normal';
 
         return <Button
-            style={{flex: 1}}
-            key={name}
-            accessible={true}
-            accessibilityLabel={name}
-            accessibilityTraits='button'
-            onPress={() => onPressHandler(page)}
-        >
-            <View style={[styles.tab, this.props.tabStyle, {flex: tabSize}]}>
-                <Text style={[{color: textColor, fontWeight,}, textStyle,]}>
-                    {name}
-                </Text>
-            </View>
+        style={{width: tabSizes[page]}}
+        key={name}
+        accessible={true}
+        accessibilityLabel={name}
+        accessibilityTraits='button'
+        onPress={() => onPressHandler(page)}
+    >
+    <View style={[styles.tab, this.props.tabStyle, {width: tabSizes[page]}]}>
+    <Text style={[{color: textColor, fontWeight,}, textStyle,]}>
+        {name}
+    </Text>
+        </View>
         </Button>;
     },
 
@@ -66,29 +66,28 @@ const SizeableTabBar = React.createClass({
         };
 
         const underlineSize = this.props.tabSizes.reduce((pv, cv) => pv + cv, 0);
-        var leftEdge = 0;
-        for (let i = 0; i < this.props.activeTab; i++) {
-            leftEdge += containerWidth * (this.props.tabSizes[i] / underlineSize)
+        var tabSizes = [];
+        for (let i = 0; i < numberOfTabs; i++) {
+            tabSizes[i] = containerWidth * (this.props.tabSizes[i] / underlineSize)
         }
 
-        var tabSize = containerWidth * (this.props.tabSizes[this.props.activeTab] / underlineSize);
         var left = this.props.scrollValue.interpolate({
             inputRange: [0, 1,], outputRange: [0, containerWidth / underlineSize,],
         });
         return (
             <View style={[styles.tabs, {backgroundColor: this.props.backgroundColor,}, this.props.style,]}>
-                {this.props.tabs.map((name, page) => {
-                    const isTabActive = this.props.activeTab === page;
-                    const renderTab = this.props.renderTab || this.renderTab;
-                    return renderTab(name, page, isTabActive, this.props.goToPage, this.props.tabSizes[page]);
-                })}
-                <Animated.View style={[
-                    tabUnderlineStyle,
-                    {left},
-                    this.props.underlineStyle,
-                    {width: tabSize}]}/>
-            </View>
-        );
+        {this.props.tabs.map((name, page) => {
+            const isTabActive = this.props.activeTab === page;
+            const renderTab = this.props.renderTab || this.renderTab;
+            return renderTab(name, page, isTabActive, this.props.goToPage, tabSizes);
+        })}
+    <Animated.View style={[
+            tabUnderlineStyle,
+        {left},
+        this.props.underlineStyle,
+        {width: tabSizes[this.props.activeTab]}]}/>
+    </View>
+    );
     },
 });
 
