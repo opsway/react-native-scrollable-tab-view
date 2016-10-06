@@ -19,6 +19,7 @@ const TimerMixin = require('react-timer-mixin');
 const SceneComponent = require('./SceneComponent');
 const DefaultTabBar = require('./DefaultTabBar');
 const ScrollableTabBar = require('./ScrollableTabBar');
+const SizeableTabBar = require('./SizeableTabBar');
 
 
 const ScrollableTabView = React.createClass({
@@ -26,6 +27,7 @@ const ScrollableTabView = React.createClass({
   statics: {
     DefaultTabBar,
     ScrollableTabBar,
+    SizeableTabBar
   },
 
   propTypes: {
@@ -253,6 +255,7 @@ const ScrollableTabView = React.createClass({
     let tabBarProps = {
       goToPage: this.goToPage,
       tabs: this._children().map((child) => child.props.tabLabel),
+      tabSizes: this._children().map((child) => child.props.tabSize),
       activeTab: this.state.currentPage,
       scrollValue: this.state.scrollValue,
       containerWidth: this.state.containerWidth,
