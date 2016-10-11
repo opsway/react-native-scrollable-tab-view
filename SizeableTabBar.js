@@ -72,22 +72,22 @@ const SizeableTabBar = React.createClass({
         }
 
         var left = this.props.scrollValue.interpolate({
-            inputRange: [0, 1,], outputRange: [0, containerWidth / underlineSize,],
+            inputRange: [0, 1,], outputRange: [0, containerWidth * 2 / underlineSize,],
         });
         return (
             <View style={[styles.tabs, {backgroundColor: this.props.backgroundColor,}, this.props.style,]}>
-        {this.props.tabs.map((name, page) => {
-            const isTabActive = this.props.activeTab === page;
-            const renderTab = this.props.renderTab || this.renderTab;
-            return renderTab(name, page, isTabActive, this.props.goToPage, tabSizes);
-        })}
-    <Animated.View style={[
-            tabUnderlineStyle,
-        {left},
-        this.props.underlineStyle,
-        {width: tabSizes[this.props.activeTab]}]}/>
-    </View>
-    );
+                {this.props.tabs.map((name, page) => {
+                    const isTabActive = this.props.activeTab === page;
+                    const renderTab = this.props.renderTab || this.renderTab;
+                    return renderTab(name, page, isTabActive, this.props.goToPage, tabSizes);
+                })}
+                <Animated.View style={[
+                    tabUnderlineStyle,
+                    {left},
+                    this.props.underlineStyle,
+                    {width: tabSizes[this.props.activeTab]}]}/>
+            </View>
+        );
     },
 });
 
