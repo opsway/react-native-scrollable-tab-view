@@ -38,20 +38,20 @@ const SizeableTabBar = React.createClass({
         const textColor = isTabActive ? activeTextColor : inactiveTextColor;
         const fontWeight = isTabActive ? 'bold' : 'normal';
 
-        return <Button
-        style={{width: tabSizes[page]}}
-        key={name}
-        accessible={true}
-        accessibilityLabel={name}
-        accessibilityTraits='button'
-        onPress={() => onPressHandler(page)}
-    >
-    <View style={[styles.tab, this.props.tabStyle, {width: tabSizes[page]}]}>
-    <Text style={[{color: textColor, fontWeight,}, textStyle,]}>
-        {name}
-    </Text>
-        </View>
-        </Button>;
+        return  <View style={{width: tabSizes[page]}} key={name}>
+                    <Button
+                        style={{width: tabSizes[page], flex: 1}}
+                        accessible={true}
+                        accessibilityLabel={name}
+                        accessibilityTraits='button'
+                        onPress={() => onPressHandler(page)}>
+                        <View style={[styles.tab, this.props.tabStyle, {width: tabSizes[page]}]}>
+                            <Text style={[{color: textColor, fontWeight,}, textStyle,]}>
+                                {name}
+                            </Text>
+                        </View>
+                    </Button>
+                </View>
     },
 
     render() {
