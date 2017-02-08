@@ -8,7 +8,7 @@ const {
 } = ReactNative;
 const Button = require('./Button');
 
-const SizeableTabBar = React.createClass({
+const SizableTabBar = React.createClass({
     propTypes: {
         goToPage: React.PropTypes.func,
         activeTab: React.PropTypes.number,
@@ -110,5 +110,5 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = SizeableTabBar;
+module.exports = SizableTabBar;
 
