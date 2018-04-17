@@ -5,6 +5,7 @@ const {
   Text,
   View,
   Animated,
+  ViewPropTypes,
 } = ReactNative;
 const PropTypes = require('prop-types');
 const createReactClass = require('create-react-class');
@@ -19,9 +20,9 @@ const DefaultTabBar = createReactClass({
     activeTextColor: PropTypes.string,
     inactiveTextColor: PropTypes.string,
     textStyle: Text.propTypes.style,
-    tabStyle: View.propTypes.style,
+    tabStyle: ViewPropTypes.style,
     renderTab: PropTypes.func,
-    underlineStyle: View.propTypes.style,
+    underlineStyle: ViewPropTypes.style,
   },
 
   getDefaultProps() {
