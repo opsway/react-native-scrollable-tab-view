@@ -97,8 +97,8 @@ const ScrollableTabView = createReactClass({
 
   goToPage(pageNumber, animated = !this.props.scrollWithoutAnimation) {
     const offset = pageNumber * this.state.containerWidth;
-    if (this.scrollView && this.scrollView._component && this.scrollView._component.scrollTo) {
-      this.scrollView._component.scrollTo({x: offset, y: 0, animated, });
+    if (this.scrollView && this.scrollView.scrollTo) {
+      this.scrollView.scrollTo({x: offset, y: 0, animated, });
     }
 
     const currentPage = this.state.currentPage;
